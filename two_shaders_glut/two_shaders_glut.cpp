@@ -297,6 +297,7 @@ void reshapeCallback( int width, int height ){
 }
 
 void keyboardCallback( unsigned char key, int x, int y ){
+  float centerPosition[] = {0.0, 0.0, 0.0};
   switch( key ){
     case 27: // The 'esc' key
     case 'q':
