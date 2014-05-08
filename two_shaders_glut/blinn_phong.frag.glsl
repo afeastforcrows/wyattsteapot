@@ -1,4 +1,6 @@
 # version 120
+//#include <stdlib.h>
+//#include <time.h>   
 /*
  * Michael Shafae
  * mshafae at fullerton.edu
@@ -40,6 +42,11 @@ uniform vec4 ambient;
 uniform vec4 diffuse;
 uniform vec4 specular;
 uniform float shininess;
+
+
+float rand(vec3 co){
+      return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
 
 vec4 ComputeLight (const in vec3 direction, const in vec4 lightcolor, const in vec3 normal, const in vec3 halfvec, const in vec4 mydiffuse, const in vec4 myspecular, const in float myshininess){
 
@@ -85,7 +92,7 @@ void main (void){
 
     if(myNormal[0]>0.9)
     {
-      color0 = vec4(0.5, 0.2, 0.5, 0.0);
+      color0 = vec4(0.21, 0.16, 0.10, 0.0);
     }
     else if (myNormal[0]>0.7)
     {
@@ -93,7 +100,7 @@ void main (void){
     }
     else if (myNormal[0]>0.5)
     {
-      color0 = vec4(0.5, 0.2, 0.5, 0.0);
+      color0 = vec4(0.21, 0.16, 0.10, 0.0);
     }
     else if (myNormal[0]>0.3)
     {
@@ -101,11 +108,11 @@ void main (void){
     }
     else if (myNormal[0]>0.1)
     {
-      color0 = vec4(0.5, 0.2, 0.5, 0.0);
+      color0 = vec4(0.21, 0.16, 0.10, 0.0);
     }
     else if(myNormal[0]<-0.9)
     {
-      color0 = vec4(0.5, 0.2, 0.5, 0.0);
+      color0 = vec4(0.21, 0.16, 0.10, 0.0);
     }
     else if (myNormal[0]<-0.7)
     {
@@ -113,7 +120,7 @@ void main (void){
     }
     else if (myNormal[0]<-0.5)
     {
-      color0 = vec4(0.5, 0.2, 0.5, 0.0);
+      color0 = vec4(0.21, 0.16, 0.10, 0.0);
     }
     else if (myNormal[0]<-0.3)
     {
@@ -121,7 +128,7 @@ void main (void){
     }
     else if (myNormal[0]<-0.1)
     {
-      color0 = vec4(0.5, 0.2, 0.5, 0.0);
+      color0 = vec4(0.21, 0.16, 0.10, 0.0);
     }
     else 
     {
@@ -134,7 +141,17 @@ void main (void){
     else if (intensity > 0.9) color0 = vec4(0.0, 0.0, 0.0, 0.0);
     else if (intensity > 0.6 && myNormal[2]>0.9) color0 = vec4(0.0, 0.00, 0.0, 0.0);
 
-        
-    gl_FragColor =ambient + color0;
+    float myRandom = rand(myNormal);
+    
+    float red = 0.2;//*myRandom;
+    
+    if(myRandom>=0.7)
+    {
+      red *= myRandom;
+    }
+    
+    vec4 randomColor = vec4(red, 0.0, 0.02, 0.0);
+    
+    gl_FragColor = color0 + randomColor;
   }
 }
