@@ -147,25 +147,11 @@ void rotateCameraUp(float degrees, float *eyePosition, float *centerPosition, fl
 
 
 void myTranslatef( GLfloat *matrix, GLfloat x, GLfloat y, GLfloat z ){
-  // Please implement this function.
-  
-  // This code is just a placeholder to demonstrate how this procedure
-  // returns the LookAt matrix by reference.
-  // YOU MUST REMOVE THE CODE BELOW AND WRITE YOUR OWN ROUTINE.
-  int mode;
-  //GLfloat vec4[] = {x, y, z, 1.0};
-  glGetIntegerv(GL_MATRIX_MODE, &mode);
-  glPushMatrix( );
-  glLoadIdentity( );
-  //now the identity matrix is on top of the stack
-  glTranslatef(x, y, z);
-  //now the right most column is x, y, z, 1
-  glGetFloatv(mode == GL_MODELVIEW ?
-              GL_MODELVIEW_MATRIX : GL_PROJECTION_MATRIX,
-              matrix);
-  glMultMatrixf(matrix);
-  //matrix = matrix * vec4;
-  glPopMatrix( ); 
+ 
+  matrix[0] = 1.0f;  matrix[4] = 0.0f;  matrix[8] = 0.0f;   matrix[12] = x;
+  matrix[1] = 0.0f;  matrix[5] = 1.0f;  matrix[9] = 0.0f;   matrix[13] = y;
+  matrix[2] = 0.0f;  matrix[6] = 0.0f;  matrix[10] = 1.0f;  matrix[14] = z;
+  matrix[3] = 0.0f;  matrix[7] = 0.0f;  matrix[11] = 0.0f;  matrix[15] = 1.0f;
 }
 
 void myScalef( GLfloat *matrix, GLfloat x, GLfloat y, GLfloat z ){
