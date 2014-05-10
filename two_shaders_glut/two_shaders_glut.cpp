@@ -298,6 +298,12 @@ void reshapeCallback( int width, int height ){
 
 void keyboardCallback( unsigned char key, int x, int y ){
   float centerPosition[] = {0.0, 0.0, 0.0};
+  //float centerPosition2[] = {0.0, 0.0, 0.0, 0.0};
+  float identity[] = { 	1, 0, 0, 0,
+			0, 1, 0, 0,
+			0, 0, 1, 0,
+			0, 0, 0, 1};
+  //float zeroes[] = {0.0, 0.0, 0.0};
   switch( key ){
     case 27: // The 'esc' key
     case 'q':
@@ -308,20 +314,17 @@ void keyboardCallback( unsigned char key, int x, int y ){
 #endif
       break;
     case 'a':
-    rotateCameraLeft(rotationDelta, eyePosition,
-                       centerPosition, upVector);
+      myTranslatef(identity, 1, 0, 0);
+      //centerPosition = {identity[0], identity[5], identity[9]};
     break;
     case 'd':
-    rotateCameraLeft(-rotationDelta, eyePosition,
-                       centerPosition, upVector);
+    //rotateCameraLeft(-rotationDelta, eyePosition,centerPosition, upVector);
     break;
     case 'w':
-    rotateCameraUp(rotationDelta, eyePosition,
-                     centerPosition, upVector);
+    //rotateCameraUp(rotationDelta, eyePosition,centerPosition, upVector);
     break;
     case 's':
-    rotateCameraUp(-rotationDelta, eyePosition,
-                     centerPosition, upVector);
+    //rotateCameraUp(-rotationDelta, eyePosition,centerPosition, upVector);
     break;
     case 'v':
     // positively scale the right teapot (A)

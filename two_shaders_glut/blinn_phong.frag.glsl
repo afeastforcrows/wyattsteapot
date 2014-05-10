@@ -43,7 +43,7 @@ uniform vec4 diffuse;
 uniform vec4 specular;
 uniform float shininess;
 
-
+//a function that approximates a random number (like the noise function)
 float rand(vec3 co){
       return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
 }
@@ -89,7 +89,8 @@ void main (void){
     vec4 color1 = ComputeLight(direction1, light1_color, normal, half1, diffuse, specular, shininess) ;
    
     
-
+    //divide the teapot into vertical stripes, and shade them in 2 different colors of brown
+    
     if(myNormal[0]>0.9)
     {
       color0 = vec4(0.21, 0.16, 0.10, 0.0);
@@ -135,21 +136,23 @@ void main (void){
       color0 = vec4(0.0, 0.00, 0.0, 0.0);
     }
     
-    float intensity = dot(eyedirn[2], myNormal[2]);
-    
-    if (intensity > 0.9 && myNormal[2]>0.9)      color0 = vec4(0.0, 0.00, 0.0, 0.0);
-    else if (intensity > 0.9) color0 = vec4(0.0, 0.0, 0.0, 0.0);
-    else if (intensity > 0.6 && myNormal[2]>0.9) color0 = vec4(0.0, 0.00, 0.0, 0.0);
+    //to make the top of the teapot a solid color we first find the top
+    float top = dot(eyedirn[2], myNormal[2]);
+    //then we shade the top dark brown
+    if (top > 0.9 && myNormal[2]>0.9)      color0 = vec4(0.0, 0.00, 0.0, 0.0);
+    else if (top > 0.9) color0 = vec4(0.0, 0.0, 0.0, 0.0);
+    else if (top > 0.6 && myNormal[2]>0.9) color0 = vec4(0.0, 0.00, 0.0, 0.0);
 
+    //come up with a random number, seed with myNormal
     float myRandom = rand(myNormal);
     
     float red = 0.2;//*myRandom;
-    
+    //only take random numbers above 0.7 to reduce the total amount and intensity of noise
     if(myRandom>=0.7)
     {
       red *= myRandom;
     }
-    
+    //add the noise to the color of the pixel
     vec4 randomColor = vec4(red, 0.0, 0.02, 0.0);
     
     gl_FragColor = color0 + randomColor;

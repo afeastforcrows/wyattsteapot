@@ -153,13 +153,18 @@ void myTranslatef( GLfloat *matrix, GLfloat x, GLfloat y, GLfloat z ){
   // returns the LookAt matrix by reference.
   // YOU MUST REMOVE THE CODE BELOW AND WRITE YOUR OWN ROUTINE.
   int mode;
+  //GLfloat vec4[] = {x, y, z, 1.0};
   glGetIntegerv(GL_MATRIX_MODE, &mode);
   glPushMatrix( );
   glLoadIdentity( );
+  //now the identity matrix is on top of the stack
   glTranslatef(x, y, z);
+  //now the right most column is x, y, z, 1
   glGetFloatv(mode == GL_MODELVIEW ?
               GL_MODELVIEW_MATRIX : GL_PROJECTION_MATRIX,
               matrix);
+  glMultMatrixf(matrix);
+  //matrix = matrix * vec4;
   glPopMatrix( ); 
 }
 

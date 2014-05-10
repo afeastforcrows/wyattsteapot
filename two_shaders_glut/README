@@ -1,0 +1,5 @@
+The two shaders are up and operational.
+The two "golden" files shade the gold teapot, the "blinn_phong" files shade the other one.
+
+Rotating vertically and hirzontally work.
+Translating the teapots does not work.
